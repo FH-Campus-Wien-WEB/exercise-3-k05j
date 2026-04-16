@@ -1,0 +1,27 @@
+{
+  "imdbID": "tt0417741",
+  "title": "Harry Potter and the Half-Blood Prince",
+  "released": "2009-07-15",
+  "runtime": 153,
+  "genres": [
+    "Action",
+    "Adventure",
+    "Family"
+  ],
+  "directors": [
+    "David Yates"
+  ],
+  "writers": [
+    "Steve Kloves",
+    "J.K. Rowling"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Emma Watson",
+    "Rupert Grint"
+  ],
+  "plot": "As Harry Potter begins his sixth year at Hogwarts, he discovers an old book marked as \"the property of the Half-Blood Prince\" and begins to learn more about Lord Voldemort's dark past.",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNzU3NDg4NTAyNV5BMl5BanBnXkFtZTcwOTg2ODg1Mg@@._V1_SX300.jpg",
+  "metascore": 78,
+  "imdbRating": 7.6
+}

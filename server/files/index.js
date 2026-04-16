@@ -1,92 +1,84 @@
-import { ElementBuilder, ParentChildBuilder } from "./builders.js";
-
-class ParagraphBuilder extends ParentChildBuilder {
-  constructor() {
-    super("p", "span");
-  }
-}
-
-class ListBuilder extends ParentChildBuilder {
-  constructor() {
-    super("ul", "li");
-  }
-}
-
-function formatRuntime(runtime) {
-  const hours = Math.trunc(runtime / 60);
-  const minutes = runtime % 60;
-  return hours + "h " + minutes + "m";
-}
-
-function appendMovie(movie, element) {
-  new ElementBuilder("article").id(movie.imdbID)
-          .append(new ElementBuilder("img").with("src", movie.Poster))
-          .append(new ElementBuilder("h1").text(movie.Title))
-          .append(new ElementBuilder("p")
-              .append(new ElementBuilder("button").text("Edit")
-                    .listener("click", () => location.href = "edit.html?imdbID=" + movie.imdbID)))
-          .append(new ParagraphBuilder().items(
-              "Runtime " + formatRuntime(movie.Runtime),
-              "\u2022",
-              "Released on " +
-                new Date(movie.Released).toLocaleDateString("en-US")))
-          .append(new ParagraphBuilder().childClass("genre").items(movie.Genres))
-          .append(new ElementBuilder("p").text(movie.Plot))
-          .append(new ElementBuilder("h2").pluralizedText("Director", movie.Directors))
-          .append(new ListBuilder().items(movie.Directors))
-          .append(new ElementBuilder("h2").pluralizedText("Writer", movie.Writers))
-          .append(new ListBuilder().items(movie.Writers))
-          .append(new ElementBuilder("h2").pluralizedText("Actor", movie.Actors))
-          .append(new ListBuilder().items(movie.Actors))
-          .appendTo(element);
-}
-
-function loadMovies(genre) {
-  const xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    const mainElement = document.querySelector("main");
-
-    while (mainElement.childElementCount > 0) {
-      mainElement.firstChild.remove()
-    }
-
-    if (xhr.status === 200) {
-      const movies = JSON.parse(xhr.responseText)
-      for (const movie of movies) {
-        appendMovie(movie, mainElement)
-      }
-    } else {
-      mainElement.append(`Daten konnten nicht geladen werden, Status ${xhr.status} - ${xhr.statusText}`);
-    }
-  }
-
-  const url = new URL("/movies", location.href)
-  /* Task 1.4. Add query parameter to the url if a genre is given */
-
-  xhr.open("GET", url)
-  xhr.send()
-}
-
+let movies = []
 window.onload = function () {
-  const xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    const listElement = document.querySelector("nav>ul");
+    const xhr = new XMLHttpRequest()
+    xhr.onload = function () {
+        const moviesElement = document.querySelector(".moviesList")
+        moviesElement.innerHTML = ""    // as soon as the request is done, remove the spinner
+        if (xhr.status == 200) {
+            movies = JSON.parse(xhr.responseText)
+            movies.forEach(movie => {
+                const movieElement = document.createElement("article")
+                movieElement.classList.add("movie")
 
-    if (xhr.status === 200) {
-      /* Task 1.3. Add the genre buttons to the listElement and 
-         initialize them with a click handler that calls the 
-         loadMovies(...) function above. */
-      const genres = JSON.parse(xhr.responseText);
-
-      /* When a first button exists, we click it to load all movies. */
-      const firstButton = document.querySelector("nav button");
-      if (firstButton) {
-        firstButton.click();
-      }
-    } else {
-      document.querySelector("body").append(`Daten konnten nicht geladen werden, Status ${xhr.status} - ${xhr.statusText}`);
+                movieElement.innerHTML = `
+                      <img src="${movie.poster}" alt="Poster of '${movie.title}'" class="movie-poster">
+                      <hr />
+                      <p class="movie-title">${movie.title}</p>
+                      <p class="movie-plot">${movie.plot}</p>
+                      <button class="button show-details-button" onclick="showDetails(${movies.indexOf(movie)})">Show details</button>
+                  `
+                moviesElement.append(movieElement)
+            })
+        } else {
+            moviesElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
+        }
     }
-  };
-  xhr.open("GET", "/genres");
-  xhr.send();
-};
+    xhr.open("GET", "/movies")
+    xhr.send()
+}
+
+function showDetails(index) {
+    const detailsElement = document.querySelector("#movieDetails")
+    const movieList = document.querySelector("#movieList")
+
+    const movie = movies[index]
+    const releasedDate = new Date(movie.released).toLocaleDateString("de-AT", { year: "numeric", month: "long", day: "numeric" })
+    const genreTags = movie.genres.map(g => `<span class="genre">${g.trim()}</span>`).join(" ")
+
+    // dl is a description list, dt is the title and dd is the description, it is used here to display the movie details in a structured way
+    detailsElement.innerHTML = `
+          <article class="detail-container" id="${movie.imdbID}">
+              <img src="${movie.poster}" alt="Poster of '${movie.title}'" class="detail-poster">
+              <div class="detail-info">
+                  <h2>${movie.title}</h2>
+                  <dl>
+                      <dt>Released</dt>
+                      <dd>${releasedDate}</dd>
+                      <dt>Runtime</dt>
+                      <dd>${movie.runtime} min</dd>
+                      <dt>Genres</dt>
+                      <dd>${genreTags}</dd>
+                      <dt>Directors</dt>
+                      <dd>${movie.directors.join(", ")}</dd>
+                      <dt>Writers</dt>
+                      <dd>${movie.writers.join(", ")}</dd>
+                      <dt>Actors</dt>
+                      <dd>${movie.actors.join(", ")}</dd>
+                      <dt>Metascore</dt>
+                      <dd>${movie.metascore}</dd>
+                      <dt>IMDb Rating</dt>
+                      <dd>${movie.imdbRating}</dd>
+                      <dt>Plot</dt>
+                      <dd>${movie.plot}</dd>
+                  </dl>
+                  <div class="button-group">
+                    <button class="button edit-button" onclick="edit('${movie.imdbID}')">Edit!</button>
+                    <button class="button" onclick="hideDetails()">Back to list</button>
+                  </div>
+              </div>
+          </article>
+      `
+    detailsElement.classList.remove("hidden")
+    movieList.classList.add("hidden")
+}
+
+function hideDetails() {
+    const detailsElement = document.querySelector("#movieDetails")
+    const movieList = document.querySelector("#movieList")
+    movieList.classList.remove("hidden")
+    detailsElement.classList.add("hidden")
+}
+
+function edit(imdbID) {
+    window.location.href = `/edit.html?imdbID=${imdbID}`
+}

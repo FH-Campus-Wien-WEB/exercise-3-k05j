@@ -1,0 +1,27 @@
+{
+  "imdbID": "tt0926084",
+  "title": "Harry Potter and the Deathly Hallows: Part 1",
+  "released": "2010-11-19",
+  "runtime": 146,
+  "genres": [
+    "Adventure",
+    "Family",
+    "Fantasy"
+  ],
+  "directors": [
+    "David Yates"
+  ],
+  "writers": [
+    "Steve Kloves",
+    "J.K. Rowling"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Emma Watson",
+    "Rupert Grint"
+  ],
+  "plot": "Harry Potter is tasked with the dangerous and seemingly impossible task of locating and destroying Voldemort's remaining Horcruxes. Harry must rely on Ron and Hermione more than ever, but dark forces threaten to tear them apart.",
+  "poster": "https://m.media-amazon.com/images/M/MV5BMTQ2OTE1Mjk0N15BMl5BanBnXkFtZTcwODE3MDAwNA@@._V1_SX300.jpg",
+  "metascore": 65,
+  "imdbRating": 7.7
+}

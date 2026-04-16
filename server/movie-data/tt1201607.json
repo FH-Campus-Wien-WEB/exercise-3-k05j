@@ -1,0 +1,27 @@
+{
+  "imdbID": "tt1201607",
+  "title": "Harry Potter and the Deathly Hallows: Part 2",
+  "released": "2011-07-15",
+  "runtime": 130,
+  "genres": [
+    "Adventure",
+    "Family",
+    "Fantasy"
+  ],
+  "directors": [
+    "David Yates"
+  ],
+  "writers": [
+    "Steve Kloves",
+    "J.K. Rowling"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Emma Watson",
+    "Rupert Grint"
+  ],
+  "plot": "Harry, Ron and Hermione set out on a quest to eliminate the remaining horcruxes. On the other hand, the students and teachers must unite to defend Hogwarts against Lord Voldemort and his army.",
+  "poster": "https://m.media-amazon.com/images/M/MV5BOTA1Mzc2N2ItZWRiNS00MjQzLTlmZDQtMjU0NmY1YWRkMGQ4XkEyXkFqcGc@._V1_SX300.jpg",
+  "metascore": 85,
+  "imdbRating": 8.1
+}

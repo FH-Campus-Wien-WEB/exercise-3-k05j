@@ -1,58 +1,52 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const movieModel = require('./movie-model.js');
+const { parseMovies } = require('./movie-model.js');
+const fs = require('fs/promises')
 
 const app = express();
 
-// Parse urlencoded bodies
 app.use(bodyParser.json()); 
-
-// Serve static content in directory 'files'
 app.use(express.static(path.join(__dirname, 'files')));
 
-/* Task 1.2: Add a GET /genres endpoint:
-   This endpoint returns a sorted array of all the genres of the movies
-   that are currently in the movie model.
-*/
-
-/* Task 1.4: Extend the GET /movies endpoint:
-   When a query parameter for a specific genre is given, 
-   return only movies that have the given genre
- */
-app.get('/movies', function (req, res) {
-  let movies = Object.values(movieModel)
-  res.send(movies);
-})
-
-// Configure a 'get' endpoint for a specific movie
-app.get('/movies/:imdbID', function (req, res) {
-  const id = req.params.imdbID
-  const exists = id in movieModel
- 
-  if (exists) {
-    res.send(movieModel[id])
-  } else {
-    res.sendStatus(404)    
+// Configure a 'get' endpoint for all movies..
+app.get('/movies', async function (req, res) {
+  try {
+    const movies = await parseMovies()
+    res.status(200).send(movies)
+  } catch (err) {
+    console.error(err)
+    res.status(500).send("Error retrieving movies")
   }
 })
 
-app.put('/movies/:imdbID', function(req, res) {
-
-  const id = req.params.imdbID
-  const exists = id in movieModel
-
-  movieModel[req.params.imdbID] = req.body;
-  
-  if (!exists) {
-    res.status(201)
-    res.send(req.body)
+app.get('/movies/:imdbID', async function (req, res) {
+  const movies = await parseMovies()
+  const movie = movies.find(m => m.imdbID === req.params.imdbID)
+  if (movie) {
+    res.status(200).send(movie)
   } else {
-    res.sendStatus(200)
+    res.sendStatus(404)
   }
-  
+})
+
+app.put('/movies/:imdbID', async function (req, res) {
+  const imdbID = req.params.imdbID
+  const updatedMovie = req.body
+  const movies = await parseMovies()
+  const index = movies.findIndex(m => m.imdbID === imdbID)
+  if (index !== -1) {
+    movies[index] = updatedMovie
+    await fs.writeFile(path.join(__dirname, 'movie-data', encodeURI(updatedMovie.imdbID) + '.json'), JSON.stringify(updatedMovie, null, 2), 'utf-8')
+    res.sendStatus(204)
+  } else {
+    movies.push(updatedMovie)
+    await fs.writeFile(path.join(__dirname, 'movie-data', encodeURI(updatedMovie.imdbID) + '.json'), JSON.stringify(updatedMovie, null, 2), 'utf-8')
+    res.sendStatus(201)
+  }
 })
 
 app.listen(3000)
 
 console.log("Server now listening on http://localhost:3000/")
+

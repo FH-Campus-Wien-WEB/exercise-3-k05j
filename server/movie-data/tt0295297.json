@@ -1,0 +1,28 @@
+{
+  "imdbID": "tt0295297",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNGJhM2M2MWYtZjIzMC00MDZmLThkY2EtOWViMDhhYjRhMzk4XkEyXkFqcGc@._V1_SX300.jpg",
+  "title": "Harry Potter and the Chamber of Secrets",
+  "released": "2002-11-16",
+  "runtime": 161,
+  "genres": [
+    "Adventure",
+    "Crime",
+    "Documentary",
+    "Drama"
+  ],
+  "directors": [
+    "Chris Columbus"
+  ],
+  "writers": [
+    "J.K. Rowling",
+    "Steve Kloves"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Rupert Grint",
+    "Emma Watson"
+  ],
+  "metascore": 63,
+  "imdbRating": 7.5,
+  "plot": "Harry Potter lives his second year at Hogwarts with Ron and Hermione when a message on the wall announces that the legendary Chamber of Secrets has been opened. The trio soon realize that, to save the school, it will take a lot of..."
+}

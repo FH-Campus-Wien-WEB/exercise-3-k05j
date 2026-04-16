@@ -5,10 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movies!</title>
     <link rel="stylesheet" href="index.css" />
-    <script type="module" src="index.js"></script>
+    <script src="index.js" defer></script>
   </head>
-
   <body>
-    <!-- Task 1.1. Add the semantic structure -->
+    <header>
+        <h1>Movies!</h1>
+        <p>Lists all Harry Potter movies, click on them to get more details!</p>
+        <hr class="rounded" />
+    </header>
+    <main>
+        <section id="movieList">
+            <div class="moviesList">
+                <div class="spinner"></div>
+            </div>
+        </section>
+        <section id="movieDetails" class="hidden"></section>
+    </main>
   </body>
 </html>

@@ -1,0 +1,27 @@
+{
+  "imdbID": "tt0304141",
+  "title": "Harry Potter and the Prisoner of Azkaban",
+  "released": "2004-06-04",
+  "runtime": 142,
+  "genres": [
+    "Adventure",
+    "Family",
+    "Fantasy"
+  ],
+  "directors": [
+    "Alfonso Cuarón"
+  ],
+  "writers": [
+    "J.K. Rowling",
+    "Steve Kloves"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Emma Watson",
+    "Rupert Grint"
+  ],
+  "plot": "Harry Potter, Ron and Hermione return to Hogwarts School of Witchcraft and Wizardry for their third year of study, where they delve into the mystery surrounding an escaped prisoner who poses a dangerous threat to the young wizard.",
+  "poster": "https://m.media-amazon.com/images/M/MV5BMTY4NTIwODg0N15BMl5BanBnXkFtZTcwOTc0MjEzMw@@._V1_SX300.jpg",
+  "metascore": 82,
+  "imdbRating": 7.9
+}

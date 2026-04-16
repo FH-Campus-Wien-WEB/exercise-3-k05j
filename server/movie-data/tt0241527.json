@@ -1,0 +1,27 @@
+{
+  "imdbID": "tt0241527",
+  "poster": "https://m.media-amazon.com/images/M/MV5BNTU1MzgyMDMtMzBlZS00YzczLThmYWEtMjU3YmFlOWEyMjE1XkEyXkFqcGc@._V1_SX300.jpg",
+  "title": "Harry Potter and the Sorcerer's Stone!",
+  "released": "2001-11-16",
+  "runtime": 152,
+  "genres": [
+    "Adventure",
+    "Family",
+    "Fantasy"
+  ],
+  "directors": [
+    "Chris Columbus"
+  ],
+  "writers": [
+    "J.K. Rowling",
+    "Steve Kloves"
+  ],
+  "actors": [
+    "Daniel Radcliffe",
+    "Rupert Grint",
+    "Emma Watson"
+  ],
+  "metascore": 65,
+  "imdbRating": 7.7,
+  "plot": "An orphaned boy enrolls in a school of wizardry, where he learns the truth about himself, his family and the terrible evil that haunts the magical world."
+}
