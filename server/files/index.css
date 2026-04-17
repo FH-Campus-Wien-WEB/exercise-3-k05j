@@ -1,5 +1,35 @@
 @import url(base.css);
 
+body {
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "nav    main"
+    "footer footer"
+  ;
+  grid-template-columns: 0.5fr 3fr;
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  grid-area: header;
+}
+
+nav {
+  grid-area: nav;
+}
+
+main {
+  grid-area: main;
+  overflow-y: auto;
+}
+
+footer {
+  grid-area: footer;
+}
+
 .genre {
   display: inline-block;
   background-color: #2a2a4a;
@@ -18,6 +48,19 @@ hr.rounded {
 }
 
 @media screen and (max-width: 768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .movies-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+  }
+
   .detail-container {
       flex-direction: column;
       align-items: center;
@@ -138,4 +181,20 @@ hr.rounded {
 
 .edit-button:hover {
   background-color: #4a4a7c;
+}
+
+.movies-navigation {
+  margin: 2rem 1rem;
+}
+
+.navigation-button {
+  width: auto;
+  margin: 0 1rem;
+  background-color: #2799eb;
+}
+
+.navigation-button:hover {
+  box-shadow: 0 0 12px rgba(0, 255, 217, 0.6);
+  background-color: #0040ff;
+  color: white;
 }

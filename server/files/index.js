@@ -1,5 +1,11 @@
 let movies = []
+
 window.onload = function () {
+    loadAllMovies();
+    populateNavigation();
+}
+
+function loadAllMovies(genre) {
     const xhr = new XMLHttpRequest()
     xhr.onload = function () {
         const moviesElement = document.querySelector(".moviesList")
@@ -23,7 +29,7 @@ window.onload = function () {
             moviesElement.append("Daten konnten nicht geladen werden, Status " + xhr.status + " - " + xhr.statusText)
         }
     }
-    xhr.open("GET", "/movies")
+    xhr.open("GET", "/movies" + (genre ? `?genre=${genre}` : ""))
     xhr.send()
 }
 
@@ -81,4 +87,25 @@ function hideDetails() {
 
 function edit(imdbID) {
     window.location.href = `/edit.html?imdbID=${imdbID}`
+}
+
+function populateNavigation() {
+    const navigation = document.querySelector('.movies-navigation');
+    const xhr = new XMLHttpRequest();
+
+    xhr.onload = () => {
+        genres = JSON.parse(xhr.responseText);
+
+        genres.forEach((genre) => {
+            const genreElement = document.createElement('button');
+            genreElement.classList.add('button');
+            genreElement.classList.add('navigation-button')
+            genreElement.innerText = genre;
+            genreElement.onclick = () => loadAllMovies(genre);
+
+            navigation.append(genreElement);
+        })
+    }
+    xhr.open('get', '/genres');
+    xhr.send();
 }

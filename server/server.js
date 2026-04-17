@@ -9,14 +9,38 @@ const app = express();
 app.use(bodyParser.json()); 
 app.use(express.static(path.join(__dirname, 'files')));
 
-// Configure a 'get' endpoint for all movies..
 app.get('/movies', async function (req, res) {
   try {
+    const genreFilter = req.query.genre
+
+    if (genreFilter) {
+      const movies = await parseMovies()
+      const filteredMovies = movies.filter(movie => movie.genres && movie.genres.includes(genreFilter))
+      res.status(200).send(filteredMovies)
+      return
+    }
+
     const movies = await parseMovies()
     res.status(200).send(movies)
   } catch (err) {
     console.error(err)
     res.status(500).send("Error retrieving movies")
+  }
+})
+
+app.get('/genres', async function (req, res) {
+  try {
+    const movies = await parseMovies()
+    const genres = new Set()
+    movies.forEach(movie => {
+      if (movie.genres) {
+        movie.genres.forEach(g => genres.add(g.trim()))
+      }
+    })
+    res.status(200).send(Array.from(genres).sort())
+  } catch (err) {
+    console.error(err)
+    res.status(500).send('Error retrieving genres');
   }
 })
 
