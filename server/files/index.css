@@ -80,7 +80,7 @@ hr.rounded {
   display: flex;
   flex-wrap: wrap;
   gap: 50px;
-  margin: 0 20px;
+  margin: 10px 20px;
 }
 
 .movie {
@@ -185,16 +185,20 @@ hr.rounded {
 
 .movies-navigation {
   margin: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .navigation-button {
   width: auto;
-  margin: 0 1rem;
-  background-color: #2799eb;
+  background-color: #1a3a5c;
+  color: #7ec8e3;
+  border: 1px solid #2a5a7c;
 }
 
 .navigation-button:hover {
-  box-shadow: 0 0 12px rgba(0, 255, 217, 0.6);
-  background-color: #0040ff;
-  color: white;
+  background-color: #2a5a7c;
+  box-shadow: 0 0 10px rgba(126, 200, 227, 0.4);
+  color: #7ec8e3;
 }
